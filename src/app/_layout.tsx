@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
-import { Navigator, Stack } from "expo-router";
+import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { GlobalProvider } from "../context/GlobalProvider";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -31,10 +31,14 @@ export default function RootLayout() {
   }
 
   return (
-    <SafeAreaView className="flex-1" onLayout={onLayoutRootView}>
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-      </Stack>
-    </SafeAreaView>
+    <GlobalProvider>
+      <SafeAreaView className="flex-1 bg-primary" onLayout={onLayoutRootView}>
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="index" />
+          <Stack.Screen name="(auth)" />
+          <Stack.Screen name="(tabs)" />
+        </Stack>
+      </SafeAreaView>
+    </GlobalProvider>
   );
 }
